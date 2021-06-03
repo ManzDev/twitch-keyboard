@@ -6,14 +6,17 @@ const sounds = [
 
 const keyPlay = () => {
   const n = Math.random() * 1;
-  const i = n > 0.92 ? 1 : ~~n;
+  const i = n > 0.96 ? 1 : ~~n;
   sounds[i].currentTime = 0;
   sounds[i].play();
 };
 
 addEventListener("keydown", (ev) => {
   const key = ev.code.toLowerCase();
-  const keyDiv = document.querySelector(`#${key}`);
+  const keyDiv = document.querySelector(`#${key}`) ?? null;
+
+  // (American keyboard: disable ñ, etc...)
+  if (!keyDiv) { return; }
 
   if (key === "f4") {
     document.querySelector(".keyboard").classList.toggle("led");
@@ -32,6 +35,10 @@ addEventListener("keydown", (ev) => {
 
 addEventListener("keyup", (ev) => {
   const key = ev.code.toLowerCase();
-  const keyDiv = document.querySelector(`#${key}`);
+  const keyDiv = document.querySelector(`#${key}`) ?? null;
+
+  // (American keyboard: disable ñ, etc...)
+  if (!keyDiv) { return; }
+
   keyDiv.classList.remove("pressed");
 });
